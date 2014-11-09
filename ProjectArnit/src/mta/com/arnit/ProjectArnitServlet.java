@@ -7,6 +7,7 @@ public class ProjectArnitServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.setContentType("text/html");
 		
+		//ex02
 
 		int num1;
 		int num2;
