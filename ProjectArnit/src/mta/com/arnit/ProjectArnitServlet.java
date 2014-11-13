@@ -39,9 +39,9 @@ public class ProjectArnitServlet extends HttpServlet {
 
 		double caulc = Math.pow(20, 13);
 		
-		String line1 = new String("calculation 1: Area of circle with radius " + radius + " is:" + area + " square - cm ");
+		String line1 = new String("calculation 1: Area of circle with radius " + radius + " is: " + area + " square - cm ");
 		String line2 = new String("calculation 2: Length of opposite where angle B is " + angleB + " degrees and Hypotenuse length is 50 cm is: " + opposite + "cm");
-		String line3 = new String("calculation 3: Power of 20 with exp of 13 is " + caulc);
+		String line3 = new String("calculation 3: Power of 20 with exp of 13 is: " + caulc);
 		
 		String resultSt = line1 + "<br>" + line2 + "<br>" +line3;
 
