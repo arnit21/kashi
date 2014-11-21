@@ -2,7 +2,6 @@ package mta.com.arnit;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.Calendar;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -58,7 +57,7 @@ public class Stock extends HttpServlet {
 			Stock s2 = new Stock();
 			s2.setsymbol("AAL");
 			s2.setAsk((float)(5.5));
-			s2.setBid((float)(5.57));
+			s2.setBid((float)(5.78));
 			s2.setDate(new Date());
 		
 			Stock s3 = new Stock();
