@@ -44,6 +44,7 @@ public class ProjectArnitServlet extends HttpServlet {
 		String line3 = new String("calculation 3: Power of 20 with exp of 13 is: " + caulc);
 		
 		String resultSt = line1 + "<br>" + line2 + "<br>" +line3;
+		
 
 		resp.getWriter().println(resultSt);
 
