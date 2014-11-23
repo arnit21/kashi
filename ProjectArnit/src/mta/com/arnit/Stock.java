@@ -42,7 +42,6 @@ public class Stock {
 			return htmlDetailsString;
 		}
 		
-		Calendar Date = Calendar.getInstance();
 }
 
 
