@@ -1,6 +1,6 @@
 package mta.com.arnit;
 
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Stock {
@@ -10,6 +10,7 @@ public class Stock {
 		private float Bid;
 		private Date date;
 		private String htmlDetailsString = "unknown";
+		private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
 		
 		public String getsymbol() {
@@ -38,7 +39,7 @@ public class Stock {
 		}
 		
 		public String getHtmlDescription(){
-			 htmlDetailsString = "<b>stock symbol</b>: "+getsymbol()+ "<b> Ask</b>: "+getAsk()+ "<b> Bid</b>: "+getBid()+ "<b> Date</b>: "+getDate();
+			 htmlDetailsString = "<b>stock symbol</b>: "+getsymbol()+ "<b> Ask</b>: "+getAsk()+ "<b> Bid</b>: "+getBid()+ "<b> Date</b>: "+ sdf.format(getDate());
 			return htmlDetailsString;
 		}
 		
