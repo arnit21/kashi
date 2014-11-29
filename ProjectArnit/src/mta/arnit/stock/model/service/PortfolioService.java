@@ -1,9 +1,9 @@
-package mta.com.mycompany.stock.model.service;
+package mta.arnit.stock.model.service;
 
 import java.util.GregorianCalendar;
 
-import mta.com.arnit.Stock;
-import mta.com.mycompany.stock.model.Portfolio;
+import mta.arnit.stock.Stock;
+import mta.arnit.stock.model.Portfolio;
 
 public class PortfolioService {
 	public Portfolio getPortfolio(){

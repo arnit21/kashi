@@ -1,35 +1,36 @@
-package mta.com.mycompany.stock.model;
+package mta.arnit.stock.model;
 
 import java.util.Date;
 import java.util.Stack;
 
-import mta.com.arnit.Stock;
+import mta.arnit.stock.Stock;
 
 
 public class Portfolio {
-	public final int STOCK_MAX = 3;
+	private final int MAX_PORTFOLIO_SIZE = 5;
 	private Stock[] stocks;
 	private StockStatus[] stocksStatus;
-	private int current_number_of_stocks;
+	private int portfolioSize;
 	
 	
 	public Portfolio() 
 	{
-		stocks = new Stock[STOCK_MAX];
-		stocksStatus = new StockStatus[STOCK_MAX];	
-		current_number_of_stocks = 0;
+		stocks = new Stock[MAX_PORTFOLIO_SIZE];
+		stocksStatus = new StockStatus[MAX_PORTFOLIO_SIZE];	
+		portfolioSize = 0;
 	}
 
 	public void addStock(Stock stock)
 	{
-		stocks[current_number_of_stocks] = stock;
-		current_number_of_stocks++;
+		stocks[portfolioSize] = stock;
+		portfolioSize++;
 	}
 	
 	public Stock[] getStocks()
 	{
 		return stocks;
 	}
+	
 	public class StockStatus 
 	{
 		private final static int DO_NOTHING = 0;

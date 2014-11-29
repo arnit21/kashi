@@ -6,7 +6,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet>
 		<servlet-name>ProjectArnit</servlet-name>
-		<servlet-class>mta.com.arnit.ProjectArnitServlet</servlet-class>
+		<servlet-class>mta.arnit.stock.ProjectArnitServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ProjectArnit</servlet-name>
@@ -15,7 +15,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	
 	<servlet>
 		<servlet-name>StockDetailsServlet</servlet-name>
-		<servlet-class>mta.com.arnit.StockDetailsServlet</servlet-class>
+		<servlet-class>mta.arnit.stock.StockDetailsServlet</servlet-class>
 	</servlet>
 		<servlet-mapping>
 		<servlet-name>StockDetailsServlet</servlet-name>
@@ -24,7 +24,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 /
 	<servlet>
 		<servlet-name>PortfolioServlet</servlet-name>
-		<servlet-class>mta.com.mycompany.stock.model.servlet.PortfolioServlet</servlet-class>
+		<servlet-class>mta.arnit.stock.model.servlet.PortfolioServlet</servlet-class>
 	</servlet>
 		<servlet-mapping>
 		<servlet-name>PortfolioServlet</servlet-name>

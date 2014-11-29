@@ -1,4 +1,4 @@
-package mta.com.arnit;
+package mta.arnit.stock;
 import java.io.IOException;
 import javax.servlet.http.*;
 import java.lang.Math;
