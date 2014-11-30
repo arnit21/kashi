@@ -41,8 +41,7 @@ public class Stock {
 		public String getHtmlDescription(){
 			 htmlDetailsString = "<b>stock symbol</b>: "+getsymbol()+ "<b> Ask</b>: "+getAsk()+ "<b> Bid</b>: "+getBid()+ "<b> Date</b>: "+ sdf.format(getDate());
 			return htmlDetailsString;
-		}
-		
+		}		
 }
 
 

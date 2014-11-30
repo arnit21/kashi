@@ -1,4 +1,4 @@
-package mta.arnit.stock.model.service;
+package mta.arnit.stock.service;
 
 import java.util.GregorianCalendar;
 
