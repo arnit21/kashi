@@ -1,4 +1,4 @@
-package mta.arnit.stock;
+package mta.arnit.stock.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

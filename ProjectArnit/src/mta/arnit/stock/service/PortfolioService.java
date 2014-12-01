@@ -2,8 +2,8 @@ package mta.arnit.stock.service;
 
 import java.util.GregorianCalendar;
 
-import mta.arnit.stock.Stock;
 import mta.arnit.stock.model.Portfolio;
+import mta.arnit.stock.model.Stock;
 
 public class PortfolioService {
 	public Portfolio getPortfolio(){
