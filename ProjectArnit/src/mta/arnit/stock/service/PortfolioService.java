@@ -5,7 +5,17 @@ import java.util.GregorianCalendar;
 import mta.arnit.stock.model.Portfolio;
 import mta.arnit.stock.model.Stock;
 
+/**
+ * Service the Portfolio
+ * @author Arnit
+ * @since 2014
+ * 01/12/2014
+ */
 public class PortfolioService {
+	/**
+	 * Creates a new instance of a portfolio 
+	 * @return portfolio
+	 */
 	public Portfolio getPortfolio(){
 		Portfolio myPortfolio = new Portfolio();
 		
