@@ -3,30 +3,69 @@ package mta.arnit.stock.model;
 import java.util.Date;
 
 /**
- * Contains two arrays: Stock and StockStatus
+ * description of protfolio
+ * socks- array of stocks, stockstatus- array of status for each stock,
+ * portfolioSize is the size of stocks,title is the name of the stock portfolio.
  * @author Arnit
  * @since 2014
  * 01/12/14
  */
-
 public class Portfolio {
 	private final static int MAX_PORTFOLIO_SIZE = 5; 
+	private Stock[] stocks;
+	private StockStatus[] stocksStatus;
+	private int portfolioSize;
+	private String title;
+
 	/**
-	 * Stock is array,the size of Stock is 5, stock array include stocks. 
+	 *  Portfolio constractor
 	 */
-	private Stock[] stocks = new Stock[MAX_PORTFOLIO_SIZE];
+	public Portfolio() {
+		stocks = new Stock[MAX_PORTFOLIO_SIZE];
+		stocksStatus = new StockStatus[MAX_PORTFOLIO_SIZE];
+		portfolioSize = 0;
+	}
+	
 	/**
-	 * stocksStatus is array, the size of stocksStatus is 5, to save Status of Stocks
+	 * Portfolio copy constractor 
+	 * @param p
 	 */
-	private StockStatus[] stocksStatus = new StockStatus[MAX_PORTFOLIO_SIZE];
-	/**
-	 * The size of portfolio
-	 */
-	private int portfolioSize = 0;
-	/**
-	 * The title of the portfolio
-	 */
-	private String title = "<h1>Portfolio</h1>";
+	public Portfolio(Portfolio p){
+		this();
+		
+		for(int i=0; i<p.portfolioSize;i++){
+			this.stocks[i]=new Stock(p.stocks[i]);
+		}	
+		setStocksStatus(p.stocksStatus);
+		setPortfolioSize(p.portfolioSize);
+		setTitle(p.title);
+	}
+	
+	public Stock[] getStocks()
+	{
+		return stocks;
+	}
+	public void setStocks(Stock[] stocks) {
+		this.stocks = stocks;
+	}
+	public StockStatus[] getStocksStatus() {
+		return stocksStatus;
+	}
+	public void setStocksStatus(StockStatus[] stocksStatus) {
+		this.stocksStatus = stocksStatus;
+	}
+	public int getPortfolioSize() {
+		return portfolioSize;
+	}
+	public void setPortfolioSize(int portfolioSize) {
+		this.portfolioSize = portfolioSize;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	
 	/**
 	 * to add stock to array stock
@@ -39,28 +78,20 @@ public class Portfolio {
 	}
 	
 	/**
-	 * @return stocks
-	 */
-	public Stock[] getStocks()
-	{
-		return stocks;
-	}
-	
-	/**
 	 * return title and html description of the stock in array stocks.
 	 * @return 
 	 */
 	public String getHtmlString(){
-		String to_return = title;
-		for(int i=0; i < portfolioSize ; i++)
+		String to_return = "<h1>" + getTitle() + "</h1>";
+		for(int i=0; i < getPortfolioSize() ; i++)
 		{
 			to_return += stocks[i].getHtmlDescription() + "<br>";	
 		}
 		return to_return;
-	}
-	
+	} 
+
 	/**
-	 * inner class Stock Status 
+	 * inner class Stock Status BUY/SELL/DO_NOTHING with stock.
 	 * @author Arnit
 	 * @since 2014
 	 * 01/12/14
@@ -77,7 +108,7 @@ public class Portfolio {
 		private Date date;
 		private int recommendation;
 		private int stockQuantity;
+		
 	}
-	
 }
 	
