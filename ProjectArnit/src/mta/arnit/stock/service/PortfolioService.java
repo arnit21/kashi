@@ -28,9 +28,8 @@ public class PortfolioService {
 		Stock s3 = new Stock("CAAS",31.5f,31.2f,new GregorianCalendar(2014, 10, 15).getTime());
 		myPortfolio.addStock(s3);
 		
-		myPortfolio.setTitle("Portfolio");
+		myPortfolio.setTitle("Portfolio #1");
 
 		return myPortfolio;
 	}
-
 }

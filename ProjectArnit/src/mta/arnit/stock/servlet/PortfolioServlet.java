@@ -25,8 +25,24 @@ public class PortfolioServlet extends HttpServlet  {
 		PortfolioService portfolioService = new PortfolioService();
 		Portfolio portfolio = portfolioService.getPortfolio();
 		Stock[] stocks = portfolio.getStocks();	
-	
+		
+		Portfolio portfolio2 = new Portfolio(portfolio);
+		portfolio2.setTitle("Portfolio #2");
+
 		resp.getWriter().println(portfolio.getHtmlString());
+		resp.getWriter().println(portfolio2.getHtmlString());
+		
+		
+		portfolio.removeFirstStock(portfolio);
+		
+		resp.getWriter().println(portfolio.getHtmlString());
+		resp.getWriter().println(portfolio2.getHtmlString());
+		
+		portfolio2.getStocks()[2].setBid(55.55f);
+
+		resp.getWriter().println(portfolio.getHtmlString());
+		resp.getWriter().println(portfolio2.getHtmlString());
+		
 		resp.setContentType("text/html");
 	}	
 }
