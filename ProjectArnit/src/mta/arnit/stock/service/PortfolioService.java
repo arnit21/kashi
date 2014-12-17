@@ -16,20 +16,28 @@ public class PortfolioService {
 	 * Creates a new instance of a portfolio 
 	 * @return portfolio
 	 */
-	public Portfolio getPortfolio(){
-		Portfolio myPortfolio = new Portfolio();
+	public Portfolio getPortfolio()
+	{
 		
-		Stock s1 = new Stock("PIH",12.4f,13.1f,new GregorianCalendar(2014, 10, 15).getTime());
+		Portfolio myPortfolio = new Portfolio();
+		myPortfolio.setTitle("Exercise 7 portfolio");
+		myPortfolio.setBalance(10000);
+		
+		Stock s1 = new Stock("PIH",10f,8.5f,new GregorianCalendar(2014, 11, 15).getTime());
 		myPortfolio.addStock(s1);
 
-		Stock s2 = new Stock("ALL",5.5f,5.78f,new GregorianCalendar(2014, 10, 15).getTime());
+		Stock s2 = new Stock("AAL",30f,25.5f,new GregorianCalendar(2014, 11, 15).getTime());
 		myPortfolio.addStock(s2);
 	
-		Stock s3 = new Stock("CAAS",31.5f,31.2f,new GregorianCalendar(2014, 10, 15).getTime());
+		Stock s3 = new Stock("CAAS",20f,15.5f,new GregorianCalendar(2014, 11, 15).getTime());
 		myPortfolio.addStock(s3);
 		
-		myPortfolio.setTitle("Portfolio #1");
-
+		myPortfolio.buyStock("PIH", 20);
+		myPortfolio.buyStock("AAL", 30);
+		myPortfolio.buyStock("CAAS", 40);
+		myPortfolio.sellStock("AAL", -1);
+		myPortfolio.removeStock("CAAS");
+		
 		return myPortfolio;
 	}
 }

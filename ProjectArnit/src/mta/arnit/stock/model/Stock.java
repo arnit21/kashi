@@ -33,10 +33,10 @@ public class Stock {
 		 * @param s
 		 */	
 		public Stock (Stock s){
-			this(s.getsymbol(),s.getAsk(),s.getBid(),s.getDate());
+			this(s.getSymbol(),s.getAsk(),s.getBid(),new Date (s.getDate().getTime()));
 		}
 		
-		public String getsymbol() {
+		public String getSymbol() {
 			return symbol;
 		}
 		public void setsymbol(String symbol) {
@@ -66,9 +66,10 @@ public class Stock {
 		 * @return
 		 */
 		public String getHtmlDescription(){
-			 htmlDetailsString = "<b>stock symbol</b>: "+getsymbol()+ "<b> Ask</b>: "+getAsk()+ "<b> Bid</b>: "+getBid()+ "<b> Date</b>: "+ sdf.format(getDate());
+			 htmlDetailsString = "<b>stock symbol</b>: "+getSymbol()+ "<b> Ask</b>: "+getAsk()+ "<b> Bid</b>: "+getBid()+ "<b> Date</b>: "+ sdf.format(getDate());
 			return htmlDetailsString;		
 		}
+
 }
 
 
