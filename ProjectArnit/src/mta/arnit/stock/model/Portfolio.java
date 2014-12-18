@@ -295,7 +295,7 @@ public class Portfolio
 		 */
 		public StockStatus(StockStatus sS)
 		{
-			this(sS.getSymbol(),sS.getCurrentBid(),sS.getCurrentAsk(),sS.getDate(),sS.getRecommendation(),sS.getStockQuantity());
+			this(sS.getSymbol(),sS.getCurrentBid(),sS.getCurrentAsk(),new Date (sS.getDate().getTime()),sS.getRecommendation(),sS.getStockQuantity());
 		}
 
 		/**
@@ -320,7 +320,7 @@ public class Portfolio
 			this.symbol = stock.getSymbol();
 			this.currentBid = stock.getBid();
 			this.currentAsk = stock.getAsk();
-			this.date = stock.getDate();
+			this.date = new Date (stock.getDate().getTime());
 			this.recommendation = ALGO_RECOMMENDATION.DO_NOTHING;
 			this.stockQuantity = 0;
 		}
