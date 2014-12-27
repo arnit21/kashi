@@ -3,7 +3,7 @@ package mta.arnit.stock.service;
 import java.util.GregorianCalendar;
 
 import mta.arnit.stock.model.Portfolio;
-import mta.arnit.stock.model.Stock;
+import mta.arnit.stock.model.StockStatus;
 
 /**
  * Service the Portfolio
@@ -20,16 +20,16 @@ public class PortfolioService {
 	{
 		
 		Portfolio myPortfolio = new Portfolio();
-		myPortfolio.setTitle("Exercise 7 portfolio");
+		myPortfolio.setTitle("Exercise 8 portfolio");
 		myPortfolio.setBalance(10000);
 		
-		Stock s1 = new Stock("PIH",10f,8.5f,new GregorianCalendar(2014, 11, 15).getTime());
+		StockStatus s1 = new StockStatus("PIH",10f,8.5f,new GregorianCalendar(2014, 11, 15).getTime());
 		myPortfolio.addStock(s1);
 
-		Stock s2 = new Stock("AAL",30f,25.5f,new GregorianCalendar(2014, 11, 15).getTime());
+		StockStatus s2 = new StockStatus("AAL",30f,25.5f,new GregorianCalendar(2014, 11, 15).getTime());
 		myPortfolio.addStock(s2);
 	
-		Stock s3 = new Stock("CAAS",20f,15.5f,new GregorianCalendar(2014, 11, 15).getTime());
+		StockStatus s3 = new StockStatus("CAAS",20f,15.5f,new GregorianCalendar(2014, 11, 15).getTime());
 		myPortfolio.addStock(s3);
 		
 		myPortfolio.buyStock("PIH", 20);

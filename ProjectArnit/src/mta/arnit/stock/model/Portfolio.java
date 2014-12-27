@@ -1,11 +1,8 @@
 package mta.arnit.stock.model;
 
-import java.util.Date;
-
-
 /**
- * description of protfolio
- * socks- array of stocks, stockstatus- array of status for each stock,
+ * description of portfolio
+ * socks-  stockstatus- array of status for each stock,
  * portfolioSize is the size of stocks,title is the name of the stock portfolio.
  * @author Arnit
  * @since 2014
@@ -14,7 +11,6 @@ import java.util.Date;
 public class Portfolio
 {
 	private final static int MAX_PORTFOLIO_SIZE = 5; 
-	private Stock[] stocks;
 	private StockStatus[] stocksStatus;
 	private int portfolioSize;
 	private String title;
@@ -25,7 +21,6 @@ public class Portfolio
 	 *  Portfolio constractor
 	 */
 	public Portfolio() {
-		stocks = new Stock[MAX_PORTFOLIO_SIZE];
 		stocksStatus = new StockStatus[MAX_PORTFOLIO_SIZE];
 		portfolioSize = 0;
 	}
@@ -38,9 +33,6 @@ public class Portfolio
 	{
 		this();
 
-		for(int i=0; i<p.portfolioSize;i++){
-			this.stocks[i]=new Stock(p.stocks[i]);
-		}
 		for(int i = 0; i < portfolioSize; i++){
 			this.stocksStatus[i] = new StockStatus(p.stocksStatus[i]); 
 		}
@@ -48,13 +40,7 @@ public class Portfolio
 		setTitle(p.title);
 	}
 
-	public Stock[] getStocks()
-	{
-		return stocks;
-	}
-	public void setStocks(Stock[] stocks) {
-		this.stocks = stocks;
-	}
+	
 	public StockStatus[] getStocksStatus() {
 		return stocksStatus;
 	}
@@ -76,20 +62,30 @@ public class Portfolio
 	public void setBalance(float balance) {
 		this.balance = balance;
 	}
-
+	
 	/**
 	 * to add stock to array stock if have a place in the array if not print to console Error.
-	 * @param stock
+	 * @param stockStatus
 	 */
-	public void addStock(Stock stock)
-	{
+	public boolean addStock(StockStatus stcokStatus) {
 		if(portfolioSize==MAX_PORTFOLIO_SIZE)
 		{
 			System.out.println("Can’t add new stock, portfolio can have only"+ MAX_PORTFOLIO_SIZE +"stocks");
+			return false;
 		}
-		stocks[portfolioSize] = stock;
-		stocksStatus[portfolioSize]= new StockStatus(stock);
+		
+		for (int i = 0; i < portfolioSize; i++) {
+			if (stocksStatus[i].getSymbol().equals(stcokStatus.getSymbol())) {
+				System.out.println(stocksStatus[i].getSymbol() + " Already exists in the portfolio");
+				
+				return false;
+			}
+		}
+		
+		stocksStatus[portfolioSize] = new StockStatus(stcokStatus);
 		portfolioSize++;
+		
+		return true;
 	}
 
 	/**
@@ -108,12 +104,10 @@ public class Portfolio
 		
 		while (index < portfolioSize -1 )
 		{
-			stocks[index] = stocks[index +1];
 			stocksStatus[index] = stocksStatus[index + 1];
 			index ++;
 		}
 
-		stocks[index] = null;
 		stocksStatus[index] = null;
 		portfolioSize--;
 
@@ -129,7 +123,6 @@ public class Portfolio
 	{
 		for(int i = 0; i < portfolioSize; i++)
 		{
-			assert(stocks[i].getSymbol() == stocksStatus[i].getSymbol());
 			if(stocksStatus[i].getSymbol().equals(symbol))
 			{
 				return i;
@@ -165,7 +158,7 @@ public class Portfolio
 			quantity = stocksStatus[index].getStockQuantity();
 		}
 
-		updateBalance(quantity * stocksStatus[index].getCurrentBid());
+		updateBalance(quantity * stocksStatus[index].getBid());
 		stocksStatus[index].setStockQuantity(stocksStatus[index].getStockQuantity() - quantity);
 
 
@@ -188,10 +181,10 @@ public class Portfolio
 		}
 		
 		if(quantity == -1){
-			quantity = (int) (balance / stocksStatus[index].getCurrentAsk());
+			quantity = (int) (balance / stocksStatus[index].getAsk());
 		}
 					
-		float money_needed = quantity * (stocksStatus[index].getCurrentAsk()); 					
+		float money_needed = quantity * (stocksStatus[index].getAsk()); 					
 		if (money_needed > balance)
 		{
 			System.out.println("Not enough balance to complete purchase");
@@ -203,7 +196,6 @@ public class Portfolio
 
 		return true;
 	}
-
 
 	/**
 	 * To update the balance to know the current value in balance.
@@ -222,7 +214,7 @@ public class Portfolio
 	{
 		float portfolioValue = 0;		
 		for(int i=0 ; i < portfolioSize; i++){
-			portfolioValue += this.stocksStatus[i].getStockQuantity() * this.stocksStatus[i].getCurrentBid();		
+			portfolioValue += this.stocksStatus[i].getStockQuantity() * this.stocksStatus[i].getBid();		
 		}
 		return portfolioValue;
 	}
@@ -255,111 +247,9 @@ public class Portfolio
 		to_return += "<h1>" + getTitle() + "</h1>";
 		for(int i=0; i < getPortfolioSize() ; i++)
 		{
-			to_return += stocks[i].getHtmlDescription() + "<br>" ;
+			to_return += stocksStatus[i].getHtmlDescription() + "<br>" ;
 		}
 		to_return += "<br>" + "Total Portfolio Value: "+ getTotalValue()+"$"+", Total Stocks value: "+ getStocksValue()+"$, Balance: "+ getBalance()+"$";
 		return to_return;
 	} 
-
-	/**
-	 * inner class Stock Status BUY/SELL/DO_NOTHING with stock.
-	 * @author Arnit
-	 * @since 2014
-	 * 01/12/14
-	 */
-	public class StockStatus 
-	{
-		private String symbol;
-		private float currentBid;
-		private float currentAsk;
-		private Date date;
-		ALGO_RECOMMENDATION recommendation;
-		private int stockQuantity;
-
-		/**
-		 * StockStatus empty constractor
-		 */
-		public StockStatus(String s,float cB,float cA,Date d,ALGO_RECOMMENDATION r, int sQ)
-		{
-			symbol = s;
-			currentBid = cB;
-			currentAsk = cA;
-			date = d;
-			recommendation = r;
-			stockQuantity = sQ;
-		}
-
-		/**
-		 * StockStatus copy constractor
-		 * @param stockStatus
-		 */
-		public StockStatus(StockStatus sS)
-		{
-			this(sS.getSymbol(),sS.getCurrentBid(),sS.getCurrentAsk(),new Date (sS.getDate().getTime()),sS.getRecommendation(),sS.getStockQuantity());
-		}
-
-		/**
-		 * Empty constractor StockStatus
-		 */
-		public StockStatus()
-		{
-			symbol = "";
-			currentBid = 0;
-			currentAsk = 0;
-			date = new Date();
-			recommendation = ALGO_RECOMMENDATION.DO_NOTHING;
-			stockQuantity = 0;
-		}
-
-		/**
-		 * constractor get stock and update StockStatus details.
-		 * @param stock
-		 */
-		public StockStatus(Stock stock)
-		{
-			this.symbol = stock.getSymbol();
-			this.currentBid = stock.getBid();
-			this.currentAsk = stock.getAsk();
-			this.date = new Date (stock.getDate().getTime());
-			this.recommendation = ALGO_RECOMMENDATION.DO_NOTHING;
-			this.stockQuantity = 0;
-		}
-
-		public String getSymbol() {
-			return symbol;
-		}
-		public void setSymbol(String symbol) {
-			this.symbol = symbol;
-		}
-		public float getCurrentBid() {
-			return currentBid;
-		}
-		public void setCurrentBid(float currentBid) {
-			this.currentBid = currentBid;
-		}
-		public float getCurrentAsk() {
-			return currentAsk;
-		}
-		public void setCurrentAsk(float currentAsk) {
-			this.currentAsk = currentAsk;
-		}
-		public Date getDate() {
-			return date;
-		}
-		public void setDate(Date date) {
-			this.date = date;
-		}
-		public ALGO_RECOMMENDATION getRecommendation() {
-			return recommendation;
-		}
-		public void setRecommendation(ALGO_RECOMMENDATION recommendation) {
-			this.recommendation = recommendation;
-		}
-		public int getStockQuantity() {
-			return stockQuantity;
-		}
-		public void setStockQuantity(int stockQuantity) {
-			this.stockQuantity = stockQuantity;
-		}
-	}
 }

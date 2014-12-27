@@ -11,12 +11,12 @@ import java.util.Date;
  */
 public class Stock {
 
-		private String symbol;
-		private float ask;
-		private float bid;
-		private Date date;
-		private String htmlDetailsString = "unknown";
-		private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		protected String symbol;
+		protected float ask;
+		protected float bid;
+		protected Date date;
+		protected String htmlDetailsString = "unknown";
+		protected SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
 		/**
 		 * Stock constractor
