@@ -67,7 +67,8 @@ public class Portfolio
 	 * to add stock to array stock if have a place in the array if not print to console Error.
 	 * @param stockStatus
 	 */
-	public boolean addStock(StockStatus stcokStatus) {
+	public boolean addStock(Stock stock) {
+		
 		if(portfolioSize==MAX_PORTFOLIO_SIZE)
 		{
 			System.out.println("Can’t add new stock, portfolio can have only"+ MAX_PORTFOLIO_SIZE +"stocks");
@@ -75,14 +76,15 @@ public class Portfolio
 		}
 		
 		for (int i = 0; i < portfolioSize; i++) {
-			if (stocksStatus[i].getSymbol().equals(stcokStatus.getSymbol())) {
+			
+			if (stocksStatus[i].getSymbol().equals(stock.getSymbol())) {
 				System.out.println(stocksStatus[i].getSymbol() + " Already exists in the portfolio");
 				
 				return false;
 			}
 		}
 		
-		stocksStatus[portfolioSize] = new StockStatus(stcokStatus);
+		stocksStatus[portfolioSize] = new StockStatus(stock);
 		portfolioSize++;
 		
 		return true;

@@ -31,17 +31,6 @@ public class StockStatus extends Stock {
 	}
 	
 	/**
-	 * StockStatus constractor that use his parent constractor  
-	 * @param s
-	 * @param f
-	 * @param g
-	 * @param t
-	 */
-	public StockStatus(String s, float f, float g, Date t) {
-		super(s, f, g, t);
-	}
-	
-	/**
 	 * StockStatus copy constractor
 	 * @param stockStatus
 	 */
@@ -50,6 +39,13 @@ public class StockStatus extends Stock {
 		super(sS);
 		this.recommendation = sS.getRecommendation();
 		this.stockQuantity = sS.getStockQuantity();
+	}
+	
+	/**
+	 * StockStatus constractor that use his parent constractor  
+	*/
+	public StockStatus(Stock stock) {
+		super(stock);	
 	}
 
 	public int getStockQuantity() {
