@@ -26,8 +26,8 @@ public class StockStatus extends Stock {
 	 */
 	public StockStatus(String s, float a, float b, Date d, ALGO_RECOMMENDATION r ,int SQ) {
 		super(s, a, b, d);	
-		recommendation = r;
-		stockQuantity = SQ;
+		this.recommendation = r;
+		this.stockQuantity = SQ;
 	}
 	
 	/**
