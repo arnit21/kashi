@@ -1,5 +1,10 @@
 package mta.arnit.stock.model;
 
+import mta.arnit.stock.exception.BalanceException;
+import mta.arnit.stock.exception.PortfolioFullException;
+import mta.arnit.stock.exception.StockAlreadyExistsException;
+import mta.arnit.stock.exception.StockNotExistException;
+
 /**
  * description of portfolio
  * socks-  stockstatus- array of status for each stock,
@@ -66,13 +71,15 @@ public class Portfolio
 	/**
 	 * to add stock to array stock if have a place in the array if not print to console Error.
 	 * @param stockStatus
+	 * @throws StockAlreadyExistsException 
+	 * @throws PortfolioFullException 
 	 */
-	public boolean addStock(Stock stock) {
+	public void addStock(Stock stock) throws StockAlreadyExistsException, PortfolioFullException {
 		
 		if(portfolioSize==MAX_PORTFOLIO_SIZE)
 		{
-			System.out.println("Can’t add new stock, portfolio can have only"+ MAX_PORTFOLIO_SIZE +"stocks");
-			return false;
+			System.out.println("Can’t add new stock, portfolio can have only "+ MAX_PORTFOLIO_SIZE +" stocks");
+			throw new PortfolioFullException();
 		}
 		
 		for (int i = 0; i < portfolioSize; i++) {
@@ -80,26 +87,25 @@ public class Portfolio
 			if (stocksStatus[i].getSymbol().equals(stock.getSymbol())) {
 				System.out.println(stocksStatus[i].getSymbol() + " Already exists in the portfolio");
 				
-				return false;
+				throw new StockAlreadyExistsException(stock.getSymbol());
 			}
 		}
 		
 		stocksStatus[portfolioSize] = new StockStatus(stock);
-		portfolioSize++;
-		
-		return true;
+		portfolioSize++;		
 	}
 
 	/**
 	 * remove a specific stock from portfolio according to his symbol first sell the stock and then remove.
 	 * @param symbol
+	 * @throws StockNotExistException 
 	 */
-	public boolean removeStock(String symbol) 
+	public void removeStock(String symbol) throws StockNotExistException 
 	{	
 		int index = get_index_of_symbol(symbol);
 		
 		if(index ==-1){
-			return false;
+			throw new StockNotExistException(symbol);
 		}
 		
 		sellStock(symbol, -1);
@@ -113,7 +119,6 @@ public class Portfolio
 		stocksStatus[index] = null;
 		portfolioSize--;
 
-		return true;
 	}
 
 	/**
@@ -139,20 +144,24 @@ public class Portfolio
 	 * @param symbol
 	 * @param quantity
 	 * @return
+	 * @throws StockNotExistException 
 	 */
-	public boolean sellStock(String symbol,int quantity)
+	public void sellStock(String symbol,int quantity) throws StockNotExistException
 	{
 		int index = get_index_of_symbol(symbol);
 		
-		if (index == -1 || quantity < -1)
+		if (index == -1)
 		{
-			return false;
+			throw new StockNotExistException(symbol);
+		}
+		if(quantity < -1)
+		{
+			System.out.println("Can't sell nagative stocks");
 		}
 		
 		if(quantity > stocksStatus[index].getStockQuantity())
 		{
 			System.out.println("Not enough stocks to sell");
-			return false;
 		}
 		
 		if(quantity == -1)
@@ -163,8 +172,6 @@ public class Portfolio
 		updateBalance(quantity * stocksStatus[index].getBid());
 		stocksStatus[index].setStockQuantity(stocksStatus[index].getStockQuantity() - quantity);
 
-
-		return true;
 	}
 
 	/**
@@ -173,13 +180,23 @@ public class Portfolio
 	 * @param symbol
 	 * @param quantity
 	 * @return
+	 * @throws BalanceException 
+	 * @throws StockNotExistException 
 	 */
-	public boolean buyStock(String symbol,int quantity) 
+	public void buyStock(String symbol,int quantity) throws BalanceException, StockNotExistException 
 	{
 		int index = get_index_of_symbol(symbol);
-		if (index == -1 || quantity < -1 ||   getBalance() < 0)
+		if (index == -1)
 		{
-			return false;
+			throw new StockNotExistException(symbol);
+		}
+		if(quantity < -1)
+		{
+			System.out.println("Can't buy nagative stocks");
+		}
+		if(getBalance() < 0)
+		{
+			throw new BalanceException();
 		}
 		
 		if(quantity == -1){
@@ -190,13 +207,12 @@ public class Portfolio
 		if (money_needed > balance)
 		{
 			System.out.println("Not enough balance to complete purchase");
-			return false;
+			throw new BalanceException();
 		}
 					
 		updateBalance(-money_needed);
 		stocksStatus[index].setStockQuantity(stocksStatus[index].getStockQuantity() + quantity);
 
-		return true;
 	}
 
 	/**

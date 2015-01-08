@@ -6,8 +6,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mta.arnit.stock.exception.BalanceException;
+import mta.arnit.stock.exception.PortfolioFullException;
+import mta.arnit.stock.exception.StockAlreadyExistsException;
+import mta.arnit.stock.exception.StockNotExistException;
 import mta.arnit.stock.model.Portfolio;
-import mta.arnit.stock.model.Stock;
 import mta.arnit.stock.service.PortfolioService;
 
 /**
@@ -17,15 +20,26 @@ import mta.arnit.stock.service.PortfolioService;
  * 01/12/14
  */
 public class PortfolioServlet extends HttpServlet  {	
-	/**
-	 * Request and Response from the user in HTML
-	 */
+
+	private static final long serialVersionUID = 1L;
+
+
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
 		PortfolioService portfolioService = new PortfolioService();
-		Portfolio portfolio = portfolioService.getPortfolio();
-		
-		resp.getWriter().println(portfolio.getHtmlString());
+		Portfolio portfolio;
+		try {
+			portfolio = portfolioService.getPortfolio();
+			resp.getWriter().println(portfolio.getHtmlString());
+		} catch (StockAlreadyExistsException e) {
+			resp.getWriter().println(e.getMessage());
+		} catch (PortfolioFullException e) {
+			resp.getWriter().println(e.getMessage());
+		} catch (BalanceException e) {
+			resp.getWriter().println(e.getMessage());
+		} catch (StockNotExistException e) {
+			resp.getWriter().println(e.getMessage());
+		}
 		
 		resp.setContentType("text/html");
 	}	
