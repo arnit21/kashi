@@ -3,6 +3,7 @@ package mta.arnit.stock.service;
 import java.util.GregorianCalendar;
 
 import mta.arnit.stock.exception.BalanceException;
+import mta.arnit.stock.exception.InvalidQuantityException;
 import mta.arnit.stock.exception.PortfolioFullException;
 import mta.arnit.stock.exception.StockAlreadyExistsException;
 import mta.arnit.stock.exception.StockNotExistException;
@@ -23,8 +24,9 @@ public class PortfolioService {
 	 * @throws StockAlreadyExistsException 
 	 * @throws StockNotExistException 
 	 * @throws BalanceException 
+	 * @throws InvalidQuantityException 
 	 */
-	public Portfolio getPortfolio() throws StockAlreadyExistsException, PortfolioFullException, BalanceException, StockNotExistException
+	public Portfolio getPortfolio() throws StockAlreadyExistsException, PortfolioFullException, BalanceException, StockNotExistException, InvalidQuantityException
 	{
 		
 		Portfolio myPortfolio = new Portfolio();

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mta.arnit.stock.exception.BalanceException;
+import mta.arnit.stock.exception.InvalidQuantityException;
 import mta.arnit.stock.exception.PortfolioFullException;
 import mta.arnit.stock.exception.StockAlreadyExistsException;
 import mta.arnit.stock.exception.StockNotExistException;
@@ -32,6 +33,8 @@ public class PortfolioServlet extends HttpServlet  {
 			portfolio = portfolioService.getPortfolio();
 			resp.getWriter().println(portfolio.getHtmlString());
 		} catch (StockAlreadyExistsException e) {
+			resp.getWriter().println(e.getMessage());
+		} catch (InvalidQuantityException e) {
 			resp.getWriter().println(e.getMessage());
 		} catch (PortfolioFullException e) {
 			resp.getWriter().println(e.getMessage());

@@ -1,6 +1,7 @@
 package mta.arnit.stock.model;
 
 import mta.arnit.stock.exception.BalanceException;
+import mta.arnit.stock.exception.InvalidQuantityException;
 import mta.arnit.stock.exception.PortfolioFullException;
 import mta.arnit.stock.exception.StockAlreadyExistsException;
 import mta.arnit.stock.exception.StockNotExistException;
@@ -99,8 +100,9 @@ public class Portfolio
 	 * remove a specific stock from portfolio according to his symbol first sell the stock and then remove.
 	 * @param symbol
 	 * @throws StockNotExistException 
+	 * @throws InvalidQuantityException 
 	 */
-	public void removeStock(String symbol) throws StockNotExistException 
+	public void removeStock(String symbol) throws StockNotExistException, InvalidQuantityException 
 	{	
 		int index = get_index_of_symbol(symbol);
 		
@@ -145,8 +147,9 @@ public class Portfolio
 	 * @param quantity
 	 * @return
 	 * @throws StockNotExistException 
+	 * @throws InvalidQuantityException 
 	 */
-	public void sellStock(String symbol,int quantity) throws StockNotExistException
+	public void sellStock(String symbol,int quantity) throws StockNotExistException, InvalidQuantityException
 	{
 		int index = get_index_of_symbol(symbol);
 		
@@ -157,11 +160,13 @@ public class Portfolio
 		if(quantity < -1)
 		{
 			System.out.println("Can't sell nagative stocks");
+			throw new InvalidQuantityException("Can't sell nagative stocks");
 		}
 		
 		if(quantity > stocksStatus[index].getStockQuantity())
 		{
 			System.out.println("Not enough stocks to sell");
+			throw new InvalidQuantityException("Not enough stocks to sell");
 		}
 		
 		if(quantity == -1)
@@ -182,8 +187,9 @@ public class Portfolio
 	 * @return
 	 * @throws BalanceException 
 	 * @throws StockNotExistException 
+	 * @throws InvalidQuantityException 
 	 */
-	public void buyStock(String symbol,int quantity) throws BalanceException, StockNotExistException 
+	public void buyStock(String symbol,int quantity) throws BalanceException, StockNotExistException, InvalidQuantityException 
 	{
 		int index = get_index_of_symbol(symbol);
 		if (index == -1)
@@ -193,6 +199,7 @@ public class Portfolio
 		if(quantity < -1)
 		{
 			System.out.println("Can't buy nagative stocks");
+			throw new InvalidQuantityException("Can't buy nagative stocks");
 		}
 		if(getBalance() < 0)
 		{
