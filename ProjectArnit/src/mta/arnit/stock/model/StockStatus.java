@@ -48,6 +48,10 @@ public class StockStatus extends Stock {
 		super(stock);	
 	}
 
+	public StockStatus() {
+
+	}
+
 	public int getStockQuantity() {
 		return stockQuantity;
 	}
@@ -60,5 +64,6 @@ public class StockStatus extends Stock {
 	public void setRecommendation(ALGO_RECOMMENDATION recommendation) {
 		this.recommendation = recommendation;
 	}
+
 	
 }

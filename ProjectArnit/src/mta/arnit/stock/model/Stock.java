@@ -18,6 +18,7 @@ public class Stock {
 		protected String htmlDetailsString = "unknown";
 		protected SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
+		
 		/**
 		 * Stock constractor
 		 */		
@@ -36,6 +37,13 @@ public class Stock {
 			this(s.getSymbol(),s.getAsk(),s.getBid(),new Date (s.getDate().getTime()));
 		}
 		
+		/**
+		 * Empty constractor.
+		 */
+		public Stock() {
+
+		}
+
 		public String getSymbol() {
 			return symbol;
 		}

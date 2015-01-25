@@ -10,4 +10,8 @@ public class BalanceException extends Exception {
 	public BalanceException() {
 		super("The portfolio balance becomes negative");
 	}
+	
+	public BalanceException(String message) {
+		super(message);
+	}
 }
