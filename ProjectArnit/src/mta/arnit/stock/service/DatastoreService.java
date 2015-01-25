@@ -1,6 +1,5 @@
 package mta.arnit.stock.service;
 
-import mta.arnit.stock.model.Account;
 import mta.arnit.stock.model.Portfolio;
 import mta.arnit.stock.model.Portfolio.ALGO_RECOMMENDATION;
 import mta.arnit.stock.model.Stock;
@@ -44,11 +43,6 @@ public class DatastoreService {
 	private static final String STOCK_QUANTITY = "stockQuantity";
 	private static final String NAMESPACE_STOCK = "stock";
 	private static final String NAMESPACE_STOCK_SYMBOL = "stock_symbol";
-
-	private static final String NAMESPACE_ACCOUNT = "account";
-	private static final String BALANCE = "balance";
-	private static final String PASSWORD = "password";
-	private static final String USERNAME = "username";
 
 	private static final String NAMESPACE_PORTFOLIO = "portfolio";
 	private static final String TITLE = "title";
@@ -142,7 +136,7 @@ public class DatastoreService {
 			keys.add(result.getKey());
 		}
 
-		datastore.delete(keys);
+		datastore.delete(keys);`
 
 		//convert java list to google API entities.
 		List<Entity> store = new LinkedList<Entity>();
@@ -175,29 +169,6 @@ public class DatastoreService {
 		}
 
 		return ret;
-	}
-
-	public Account loadAccount() {
-		Account account = new Account();
-		com.google.appengine.api.datastore.DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
-		Key key = KeyFactory.createKey(NAMESPACE_ACCOUNT, 1);
-		try {
-			Entity entity = datastore.get(key);
-			account.setUsername((String)entity.getProperty(USERNAME));
-			account.setPassword((String)entity.getProperty(PASSWORD));
-			Double balance = (Double)entity.getProperty(BALANCE);
-			account.setBalance(balance.floatValue());
-		} catch (EntityNotFoundException e) {
-			//no account details found - create a new object and store it to db.
-			account.setUsername("");
-			account.setPassword("");
-			account.setBalance(Account.DEFAULT_BALANCE);
-			Entity entity = accountToEntity(account);
-			datastore.put(entity);
-		}
-
-		return account;
 	}
 
 	public Portfolio loadPortfolilo() {
@@ -244,9 +215,6 @@ public class DatastoreService {
 	 * </ul>
 	 * @param updated
 	 */
-	public void updateAccount(Account updated) {
-		updateEntity(accountToEntity(updated));
-	}
 
 	public void updatePortfolio(Portfolio portfolio) {
 		updateEntity(portfolioToEntity(portfolio));
@@ -283,15 +251,6 @@ public class DatastoreService {
 		entity.setProperty(STOCK_QUANTITY, stock.getStockQuantity());
 		entity.setProperty(RECOMMENDATION, stock.getRecommendation().name());
 		
-		return entity;
-	}
-
-	private Entity accountToEntity(Account account) {
-		Entity entity = new Entity(NAMESPACE_ACCOUNT, 1);
-		entity.setProperty(USERNAME, account.getUsername());
-		entity.setProperty(PASSWORD, account.getPassword());
-		entity.setProperty(BALANCE, account.getBalance());
-
 		return entity;
 	}
 
