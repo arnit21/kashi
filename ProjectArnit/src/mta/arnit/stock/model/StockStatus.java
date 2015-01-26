@@ -45,11 +45,15 @@ public class StockStatus extends Stock {
 	 * StockStatus constractor that use his parent constractor  
 	*/
 	public StockStatus(Stock stock) {
-		super(stock);	
+		super(stock);
+		this.recommendation = ALGO_RECOMMENDATION.DO_NOTHING;
+		stockQuantity = 0;
 	}
 
 	public StockStatus() {
-
+		super();
+		this.recommendation = ALGO_RECOMMENDATION.DO_NOTHING;
+		stockQuantity = 0;
 	}
 
 	public int getStockQuantity() {
@@ -64,6 +68,11 @@ public class StockStatus extends Stock {
 	public void setRecommendation(ALGO_RECOMMENDATION recommendation) {
 		this.recommendation = recommendation;
 	}
-
+	
+	public String getHtmlDescription(){
+		String res = super.getHtmlDescription();
+		res += " <b>quantity: </b>" + this.stockQuantity;
+		return res;
+	}
 	
 }

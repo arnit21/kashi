@@ -302,4 +302,5 @@ public class Portfolio
 		
 		throw new StockNotExistException(symbol);
 	} 
+	 
 }

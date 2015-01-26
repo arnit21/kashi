@@ -16,7 +16,7 @@ public class Stock {
 		protected float bid;
 		protected Date date;
 		protected String htmlDetailsString = "unknown";
-		protected SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		protected transient SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
 		
 		/**
@@ -41,7 +41,7 @@ public class Stock {
 		 * Empty constractor.
 		 */
 		public Stock() {
-
+			this("",0,0,new Date(0));
 		}
 
 		public String getSymbol() {
@@ -77,7 +77,6 @@ public class Stock {
 			 htmlDetailsString = "<b>stock symbol</b>: "+getSymbol()+ "<b> Ask</b>: "+getAsk()+ "<b> Bid</b>: "+getBid()+ "<b> Date</b>: "+ sdf.format(getDate());
 			return htmlDetailsString;		
 		}
-
 }
 
 
