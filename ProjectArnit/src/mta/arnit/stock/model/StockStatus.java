@@ -16,29 +16,17 @@ public class StockStatus extends Stock {
 	private int stockQuantity;
 	
 	/**
-	 * StockStatus constractor that use his parent constractor and add recommendation + stockQuantity
-	 * @param s
-	 * @param a
-	 * @param b
-	 * @param d
-	 * @param r
-	 * @param SQ
-	 */
-	public StockStatus(String s, float a, float b, Date d, ALGO_RECOMMENDATION r ,int SQ) {
-		super(s, a, b, d);	
-		this.recommendation = r;
-		this.stockQuantity = SQ;
-	}
-	
-	/**
 	 * StockStatus copy constractor
 	 * @param stockStatus
 	 */
 	public StockStatus(StockStatus sS)
 	{	
-		super(sS);
-		this.recommendation = sS.getRecommendation();
-		this.stockQuantity = sS.getStockQuantity();
+		this.symbol = sS.symbol;
+		this.bid = sS.bid;
+		this.ask = sS.ask;
+		this.date = new Date(sS.date.getTime());
+		this.recommendation = sS.recommendation;
+		this.stockQuantity = sS.stockQuantity;
 	}
 	
 	/**
@@ -46,7 +34,7 @@ public class StockStatus extends Stock {
 	*/
 	public StockStatus(Stock stock) {
 		super(stock);
-		this.recommendation = ALGO_RECOMMENDATION.DO_NOTHING;
+		recommendation = ALGO_RECOMMENDATION.DO_NOTHING;
 		stockQuantity = 0;
 	}
 
@@ -67,12 +55,6 @@ public class StockStatus extends Stock {
 	}
 	public void setRecommendation(ALGO_RECOMMENDATION recommendation) {
 		this.recommendation = recommendation;
-	}
-	
-	public String getHtmlDescription(){
-		String res = super.getHtmlDescription();
-		res += " <b>quantity: </b>" + this.stockQuantity;
-		return res;
 	}
 	
 }

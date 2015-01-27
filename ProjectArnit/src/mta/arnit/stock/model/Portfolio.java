@@ -115,8 +115,7 @@ public class Portfolio
 	 * @throws StockNotExistException 
 	 * @throws InvalidQuantityException 
 	 */
-	
-	@SuppressWarnings("null")
+
 	public void removeStock(String symbol) throws StockNotExistException, InvalidQuantityException 
 	{	
 		int index = get_index_of_symbol(symbol);
@@ -127,15 +126,13 @@ public class Portfolio
 		
 		sellStock(symbol, -1);
 		
-		while (index < stocksStatus.size()-1)
+		while (index < stocksStatus.size())
 		{
 			stocksStatus.remove(index);
 			index++;
 		}
-		
-		stocksStatus.get((Integer) null);
 	}
-
+	
 	/**
 	 * get symbol and find the place in the array - the index of symbol 
 	 * @param symbol
@@ -145,7 +142,7 @@ public class Portfolio
 	{
 		for(int i = 0; i < stocksStatus.size(); i++)
 		{
-			if(stocksStatus.get(i).getSymbol().equals(symbol))
+			if(stocksStatus.get(i).getSymbol().toLowerCase().equals(symbol.toLowerCase()))
 			{
 				return i;
 			}
@@ -189,9 +186,8 @@ public class Portfolio
 
 		updateBalance(quantity * stocksStatus.get(index).getBid());
 		stocksStatus.get(index).setStockQuantity(stocksStatus.get(index).getStockQuantity() - quantity);
-
 	}
-
+		
 	/**
 	 * To buy stock and update the balance
 	 * -1 buy stocks (with the symbol you ask for) with all the money in balance.
@@ -274,22 +270,6 @@ public class Portfolio
 	public float getTotalValue()
 	{
 		return this.getStocksValue() + this.getBalance();
-	}
-
-	/**
-	 * return title and html description of the stock in array stocks.
-	 * @return 
-	 */
-	public String getHtmlString()
-	{
-		String to_return = new String();
-		to_return += "<h1>" + getTitle() + "</h1>";
-		for(int i=0; i < getPortfolioSize() ; i++)
-		{
-			to_return += stocksStatus.get(i).getHtmlDescription() + "<br>" ;
-		}
-		to_return += "<br>" + "Total Portfolio Value: "+ getTotalValue()+"$"+", Total Stocks value: "+ getStocksValue()+"$, Balance: "+ getBalance()+"$";
-		return to_return;
 	}
 
 	 public StockStatus findBySymbol(String symbol) throws StockNotExistException {
